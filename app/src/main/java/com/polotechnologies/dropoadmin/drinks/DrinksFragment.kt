@@ -106,7 +106,9 @@ class DrinksFragment : Fragment() {
     private fun addProduct(downloadUri: Uri?) {
         val productRef = mDatabase.collection("products").document()
 
-        val productCategory  = mBinding.etLoginProductCategory.text.toString()
+        var productCategory  = mBinding.etLoginProductCategory.text.toString()
+        if(productCategory == "w") productCategory = "wines_and_spirits"
+
         val itemCategory  = mBinding.etLoginItemCategory.text.toString()
         val itemName  = mBinding.etLoginItemName.text.toString()
         val itemPrice = mBinding.etLoginItemPrice.text.toString().toInt()
@@ -123,7 +125,16 @@ class DrinksFragment : Fragment() {
 
         productRef.set(product).addOnSuccessListener {
             Toast.makeText(requireContext().applicationContext, "$itemName Added Successfully", Toast.LENGTH_SHORT).show()
+            clearFields()
         }
+
+    }
+
+    private fun clearFields() {
+        mBinding.etLoginProductCategory.setText("")
+        mBinding.etLoginItemCategory.setText("")
+        mBinding.etLoginItemName.setText("")
+        mBinding.etLoginItemPrice.setText("")
 
     }
 
