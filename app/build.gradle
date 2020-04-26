@@ -74,5 +74,9 @@ dependencies {
     //FirebaseUI
     implementation 'com.firebaseui:firebase-ui-auth:6.2.0'
 
+    //Firebase Storage
+    implementation 'com.google.firebase:firebase-storage-ktx:19.1.1'
+
+
 
 }

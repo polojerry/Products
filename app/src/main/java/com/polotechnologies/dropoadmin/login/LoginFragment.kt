@@ -20,6 +20,7 @@ class LoginFragment : Fragment() {
 
     private val RC_SIGN_IN  = 100
     private lateinit var mBinding: FragmentLoginBinding
+    private lateinit var mAuth: FirebaseAuth
     override fun onCreateView(
         inflater: LayoutInflater, container: ViewGroup?,
         savedInstanceState: Bundle?
@@ -27,8 +28,14 @@ class LoginFragment : Fragment() {
         // Inflate the layout for this fragment
         mBinding = DataBindingUtil.inflate(inflater,
             R.layout.fragment_login, container, false)
+        mAuth = FirebaseAuth.getInstance()
 
-        loginIntent()
+        if(mAuth.currentUser!=null){
+            findNavController().navigate(R.id.action_loginFragment_to_drinksFragment)
+        }else{
+            loginIntent()
+        }
+
         return mBinding.root
     }
 
