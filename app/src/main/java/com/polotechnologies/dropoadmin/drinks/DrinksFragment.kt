@@ -52,25 +52,6 @@ class DrinksFragment : Fragment() {
         }
     }
 
-    private fun uploadProductImage() {
-        val productImageRef = mStorage.reference.child("dropo_deliveries/products/wines_and_spirits/${selectedImageUri.lastPathSegment}.jpg")
-        val uploadTask = productImageRef.putFile(selectedImageUri)
-
-        val urlTask = uploadTask.continueWithTask { task ->
-            if (!task.isSuccessful) {
-                task.exception?.let {
-                    throw it
-                }
-            }
-            productImageRef.downloadUrl
-        }.addOnCompleteListener { task ->
-            if (task.isSuccessful) {
-                val downloadUri = task.result
-                addProduct(downloadUri)
-            }
-        }
-    }
-
     private fun selectImage() {
         val intent = Intent(Intent.ACTION_GET_CONTENT).apply {
             type = "image/*"
@@ -93,6 +74,34 @@ class DrinksFragment : Fragment() {
         }
     }
 
+    private fun uploadProductImage() {
+        val imageName = getImageName()
+        val productImageRef = mStorage.reference.
+            child("dropo_deliveries/products/wines_and_spirits/${imageName}.jpeg")
+
+
+        val uploadTask = productImageRef.putFile(selectedImageUri)
+
+        val urlTask = uploadTask.continueWithTask { task ->
+            if (!task.isSuccessful) {
+                task.exception?.let {
+                    throw it
+                }
+            }
+            productImageRef.downloadUrl
+        }.addOnCompleteListener { task ->
+            if (task.isSuccessful) {
+                val downloadUri = task.result
+
+                addProduct(downloadUri)
+            }
+        }
+    }
+
+    private fun getImageName(): String {
+        val productName = mBinding.etLoginItemName.text.toString().toLowerCase()
+        return productName.replace(" ", "_")
+    }
 
     private fun addProduct(downloadUri: Uri?) {
         val productRef = mDatabase.collection("products").document()
