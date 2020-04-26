@@ -9,6 +9,7 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Toast
 import androidx.databinding.DataBindingUtil
+import androidx.navigation.fragment.findNavController
 import com.firebase.ui.auth.AuthUI
 import com.firebase.ui.auth.IdpResponse
 import com.google.firebase.auth.FirebaseAuth
@@ -56,7 +57,8 @@ class LoginFragment : Fragment() {
                 // Successfully signed in
                 val user = FirebaseAuth.getInstance().currentUser
 
-                Toast.makeText(context?.applicationContext, user?.email,Toast.LENGTH_SHORT).show()
+                Toast.makeText(context?.applicationContext, "Login Successful",Toast.LENGTH_SHORT).show()
+                findNavController().navigate(R.id.action_loginFragment_to_drinksFragment)
                 // ...
             } else {
                 // Sign in failed. If response is null the user canceled the

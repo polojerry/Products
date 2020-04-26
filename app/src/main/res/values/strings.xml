@@ -2,4 +2,8 @@
     <string name="app_name">Dropo Admin</string>
     <!-- TODO: Remove or change this placeholder text -->
     <string name="hello_blank_fragment">Hello blank fragment</string>
+    <string name="hint_product_category">Product Category</string>
+    <string name="hint_item_category">Item Category</string>
+    <string name="hint_item_name">Item Name</string>
+    <string name="button_text_add_product">Add Product</string>
 </resources>
